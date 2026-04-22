@@ -1,0 +1,18 @@
+# configs/fedavg_mnist.yaml
+# FedAvg Baseline — MNIST
+# Run: python run_experiment.py --config configs/fedavg_mnist.yaml
+
+experiment_name: fedavg_mnist_10clients_a0.5_r50
+dataset: mnist
+num_clients: 10
+client_fraction: 0.5
+local_epochs: 5
+batch_size: 32
+learning_rate: 0.01
+momentum: 0.9
+num_rounds: 50
+alpha: 0.5          # Dirichlet α; override with --alpha iid / 0.01 / 0.1 / 1.0
+seed: 42
+data_dir: ./data
+is_backdoor: false
+num_adversaries: 0

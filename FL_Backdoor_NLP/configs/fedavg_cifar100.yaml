@@ -1,0 +1,18 @@
+# configs/fedavg_cifar100.yaml
+# FedAvg Baseline — CIFAR-100
+# Run: python run_experiment.py --config configs/fedavg_cifar100.yaml
+
+experiment_name: fedavg_cifar100_10clients_a0.5_r50
+dataset: cifar100
+num_clients: 10
+client_fraction: 0.5
+local_epochs: 5
+batch_size: 32
+learning_rate: 0.01
+momentum: 0.9
+num_rounds: 50
+alpha: 0.5
+seed: 42
+data_dir: ./data
+is_backdoor: false
+num_adversaries: 0

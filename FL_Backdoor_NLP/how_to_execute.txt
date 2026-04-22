@@ -1,0 +1,205 @@
+============================================================
+  FL EXPERIMENT EXECUTION GUIDE
+  Project: Federated Learning — Backdoor Attack (Category 2)
+  Working directory: FL_Backdoor_NLP/
+  All commands: python run_experiment.py --config <config>
+  Seed=42 | LR=0.01 | Momentum=0.9 | Batch=32 | LocalEpochs=5
+============================================================
+
+STATUS LEGEND:
+  [DONE]         Already completed
+  [READY]        Ready to run immediately
+  [READY]   Requires code change first (defense logic)
+
+============================================================
+ SECTION 1: Alpha = 0.5  (Default / Main Experiments)
+============================================================
+ Note: Covers ALL datasets, ALL client counts, baseline +
+       backdoor + defense. This is the primary result section.
+------------------------------------------------------------
+
+  ---- 10 Clients ----
+
+  [FedAvg Baseline]
+  [DONE]  python run_experiment.py --config configs/fedavg_mnist.yaml
+  [DONE]  python run_experiment.py --config configs/fedavg_fmnist.yaml
+  [DONE]  python run_experiment.py --config configs/fedavg_cifar10.yaml
+  [READY] python run_experiment.py --config configs/fedavg_cifar100.yaml
+  [READY] python run_experiment.py --config configs/fedavg_shakespeare.yaml
+  [READY] python run_experiment.py --config configs/fedavg_sent140.yaml
+
+  [Backdoor Attack]
+  [READY] python run_experiment.py --config configs/backdoor_mnist.yaml
+  [READY] python run_experiment.py --config configs/backdoor_cifar10.yaml
+
+  [Defense — Norm Clipping]
+  [READY] python run_experiment.py --config configs/defense_mnist_10c.yaml
+  [READY] python run_experiment.py --config configs/defense_cifar10_10c.yaml
+
+  ---- 50 Clients ----
+
+  [FedAvg Baseline]
+  [READY] python run_experiment.py --config configs/fedavg_mnist_50c.yaml
+  [READY] python run_experiment.py --config configs/fedavg_fmnist_50c.yaml
+  [READY] python run_experiment.py --config configs/fedavg_cifar10_50c.yaml
+  [READY] python run_experiment.py --config configs/fedavg_cifar100_50c.yaml
+  [READY] python run_experiment.py --config configs/fedavg_shakespeare_50c.yaml
+  [READY] python run_experiment.py --config configs/fedavg_sent140_50c.yaml
+
+  [Backdoor Attack]
+  [READY] python run_experiment.py --config configs/backdoor_mnist_50c.yaml
+  [READY] python run_experiment.py --config configs/backdoor_cifar10_50c.yaml
+
+  [Defense — Norm Clipping]
+  [READY] python run_experiment.py --config configs/defense_mnist_50c.yaml
+  [READY] python run_experiment.py --config configs/defense_cifar10_50c.yaml
+
+  ---- 100 Clients ----
+
+  [FedAvg Baseline]
+  [READY] python run_experiment.py --config configs/fedavg_mnist_100c.yaml
+  [READY] python run_experiment.py --config configs/fedavg_fmnist_100c.yaml
+  [READY] python run_experiment.py --config configs/fedavg_cifar10_100c.yaml
+  [READY] python run_experiment.py --config configs/fedavg_cifar100_100c.yaml
+  [READY] python run_experiment.py --config configs/fedavg_shakespeare_100c.yaml
+  [READY] python run_experiment.py --config configs/fedavg_sent140_100c.yaml
+
+  [Backdoor Attack]
+  [READY] python run_experiment.py --config configs/backdoor_mnist_100c.yaml
+  [READY] python run_experiment.py --config configs/backdoor_cifar10_100c.yaml
+
+
+============================================================
+ SECTION 2: Alpha = 0.01  (Extreme Non-IID)
+============================================================
+ Note: Only MNIST and CIFAR-10. Other datasets not required.
+       Use --alpha flag to override config value.
+------------------------------------------------------------
+
+  ---- 10 Clients ----
+
+  [FedAvg Baseline]
+  [READY] python run_experiment.py --config configs/fedavg_mnist.yaml   --alpha 0.01
+  [READY] python run_experiment.py --config configs/fedavg_cifar10.yaml --alpha 0.01
+
+  ---- 50 Clients ----
+  (Not required — alpha sweep is only on 10 clients)
+
+  ---- 100 Clients ----
+  (Not required — alpha sweep is only on 10 clients)
+
+
+============================================================
+ SECTION 3: Alpha = 0.1  (Strong Non-IID)
+============================================================
+ Note: Only MNIST and CIFAR-10.
+------------------------------------------------------------
+
+  ---- 10 Clients ----
+
+  [FedAvg Baseline]
+  [READY] python run_experiment.py --config configs/fedavg_mnist.yaml   --alpha 0.1
+  [READY] python run_experiment.py --config configs/fedavg_cifar10.yaml --alpha 0.1
+
+  ---- 50 Clients ----
+  (Not required)
+
+  ---- 100 Clients ----
+  (Not required)
+
+
+============================================================
+ SECTION 4: Alpha = 1.0  (Mild Non-IID)
+============================================================
+ Note: Only MNIST and CIFAR-10.
+------------------------------------------------------------
+
+  ---- 10 Clients ----
+
+  [FedAvg Baseline]
+  [READY] python run_experiment.py --config configs/fedavg_mnist.yaml   --alpha 1.0
+  [READY] python run_experiment.py --config configs/fedavg_cifar10.yaml --alpha 1.0
+
+  ---- 50 Clients ----
+  (Not required)
+
+  ---- 100 Clients ----
+  (Not required)
+
+
+============================================================
+ SECTION 5: Alpha = IID  (Perfect IID / Upper Bound)
+============================================================
+ Note: Only MNIST and CIFAR-10.
+------------------------------------------------------------
+
+  ---- 10 Clients ----
+
+  [FedAvg Baseline]
+  [READY] python run_experiment.py --config configs/fedavg_mnist.yaml   --alpha iid
+  [READY] python run_experiment.py --config configs/fedavg_cifar10.yaml --alpha iid
+
+  ---- 50 Clients ----
+  (Not required)
+
+  ---- 100 Clients ----
+  (Not required)
+
+
+============================================================
+ FINAL STEP: Generate All Plots and Results Table
+============================================================
+ Run AFTER all experiments in Sections 1-5 are complete.
+------------------------------------------------------------
+
+  python results/plot_results.py --results_dir results/
+
+  Generated files:
+    results/fig1_accuracy_vs_rounds.png   <- Figure 1 (mandatory)
+    results/fig2_loss_vs_rounds.png       <- Figure 2 (mandatory)
+    results/fig3_asr_vs_rounds.png        <- Figure 3 (after backdoor runs)
+    results/fig4_iid_vs_noniid.png        <- Figure 4 (after alpha sweep)
+    results/fig5_baseline_vs_method.png   <- Figure 5 (mandatory)
+    results/results_table.csv             <- Results table for report
+
+
+============================================================
+ AUTOMATION: Run Sections 1-5 (excluding defense) at once
+============================================================
+
+  .\run_all.ps1
+
+
+============================================================
+ RUN COUNT SUMMARY
+============================================================
+
+  Section 1 (alpha=0.5):
+    10 clients  : 6 baseline + 2 backdoor + 2 defense* = 10
+    50 clients  : 6 baseline + 2 backdoor + 2 defense* = 10
+    100 clients : 6 baseline + 2 backdoor              = 8
+    Subtotal    : 28 runs (24 ready + 4 need code)
+
+  Section 2 (alpha=0.01) : 2 runs
+  Section 3 (alpha=0.1)  : 2 runs
+  Section 4 (alpha=1.0)  : 2 runs
+  Section 5 (alpha=iid)  : 2 runs
+
+  TOTAL READY TO RUN     : 30 runs
+  TOTAL NEEDING CODE     :  4 runs (defense experiments)
+  GRAND TOTAL            : 34 runs
+
+  * Defense configs exist but require is_defense code change first.
+
+============================================================
+ NOTES
+============================================================
+
+  1. Datasets auto-download on first use (no manual download needed).
+  2. Each run saves a CSV to results/<experiment_name>.csv
+  3. Interrupted runs can be safely re-run (CSV is overwritten).
+  4. Expected time per run on CPU: 5-30 min depending on dataset.
+  5. To run on GPU: edit config and set device: cuda (auto-detected).
+  6. Alpha sweep runs use the 10-client config with --alpha override.
+
+============================================================

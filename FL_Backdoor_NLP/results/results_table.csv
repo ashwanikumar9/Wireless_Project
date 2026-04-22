@@ -1,0 +1,4 @@
+Method,Dataset,#Clients,#Rounds,Test Accuracy (%),Convergence Round,Comm. Cost (MB),Attack Success Rate
+FedAvg,CIFAR10,10,30,81.61,,5105.07,—
+FedAvg,FMNIST,10,30,90.77,,943.74,—
+FedAvg,MNIST,10,100,99.37,1.0,3145.79,—

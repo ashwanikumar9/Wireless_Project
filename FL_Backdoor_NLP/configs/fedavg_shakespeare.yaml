@@ -1,0 +1,19 @@
+# configs/fedavg_shakespeare.yaml
+# FedAvg Baseline — Shakespeare (character-level LSTM)
+# Dataset is auto-downloaded from karpathy/char-rnn on first run
+# Run: python run_experiment.py --config configs/fedavg_shakespeare.yaml
+
+experiment_name: fedavg_shakespeare_10clients_a0.5_r50
+dataset: shakespeare
+num_clients: 10
+client_fraction: 0.5
+local_epochs: 5
+batch_size: 32
+learning_rate: 0.01
+momentum: 0.9
+num_rounds: 50
+alpha: 0.5
+seed: 42
+data_dir: ./data
+is_backdoor: false
+num_adversaries: 0

@@ -1,0 +1,21 @@
+# Defense experiment: FedAvg + Norm-Clipping against backdoor attack
+# Requires is_defense: true support in run_experiment.py (to be implemented)
+experiment_name: defense_cifar10_10clients_a0.5_r50
+dataset: cifar10
+num_clients: 10
+client_fraction: 0.5
+local_epochs: 5
+batch_size: 32
+learning_rate: 0.01
+momentum: 0.9
+num_rounds: 50
+alpha: 0.5
+seed: 42
+data_dir: ./data
+is_backdoor: true
+num_adversaries: 1
+target_label: 0
+poison_rate: 0.3
+scale_factor: 10.0
+is_defense: true
+norm_clip_threshold: 3.0

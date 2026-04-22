@@ -1,0 +1,24 @@
+# configs/backdoor_mnist.yaml
+# Cat. 2 — Backdoor Attack + FedAvg — MNIST
+# Pixel trigger: 3×3 white patch bottom-right → label 0
+# Run: python run_experiment.py --config configs/backdoor_mnist.yaml
+
+experiment_name: backdoor_mnist_10clients_a0.5_r50
+dataset: mnist
+num_clients: 10
+client_fraction: 0.5
+local_epochs: 5
+batch_size: 32
+learning_rate: 0.01
+momentum: 0.9
+num_rounds: 50
+alpha: 0.5
+seed: 42
+data_dir: ./data
+
+# ── Backdoor attack settings ─────────────────────────────
+is_backdoor: true
+num_adversaries: 1          # 1 malicious client out of 10
+target_label: 0             # all poisoned samples classified as '0'
+poison_rate: 0.3            # 30 % of each adversary's batch is poisoned
+scale_factor: 10.0          # model-replacement scaling
