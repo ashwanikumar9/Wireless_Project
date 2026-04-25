@@ -1,0 +1,7 @@
+{
+  "final_accuracy": 0.8093,
+  "final_loss": 2.179838,
+  "convergence_round": 194,
+  "total_comm_mb": 6291.5802,
+  "final_asr": 0.0846
+}
